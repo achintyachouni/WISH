@@ -21,14 +21,15 @@
             position: relative;
         }
 
+        /* কেন্দ্রীয় কন্টেইনার (স্কয়ার বক্স) - আকার বাড়ানো হয়েছে */
         .container {
             background-color: rgba(255, 255, 255, 0.1); 
-            padding: 25px 15px; 
+            padding: 35px 20px; /* প্যাডিং বাড়ানো হলো */
             border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            max-width: 380px; 
-            width: 90%; 
-            border: 3px solid #ff7722; 
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-width: 450px; /* সর্বোচ্চ প্রস্থ বাড়ানো হলো */
+            width: 95%; /* মোবাইলের পুরো প্রস্থ ব্যবহার করবে */
+            border: 4px solid #ff7722; /* বর্ডার আরও মোটা করা হলো */
             position: relative; 
             z-index: 1; 
             margin: 20px auto; 
@@ -58,45 +59,44 @@
             100% { transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0); opacity: 0; }
         }
         
-        /* শিরোনাম ও মেসেজ */
+        /* শিরোনাম ও মেসেজ - ফন্ট সাইজ বাড়ানো হয়েছে */
         h1 {
             color: #ffd700; 
-            font-size: 2.1em; 
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4);
+            font-size: 2.6em; /* ফন্ট সাইজ বড় করা হলো */
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 5px rgba(255, 255, 255, 0.6);
         }
 
         h2 {
             color: #90ee90; 
-            font-size: 1.1em; 
-            margin-bottom: 15px;
+            font-size: 1.4em; /* ফন্ট সাইজ বড় করা হলো */
+            margin-bottom: 25px;
         }
 
         .message {
-            margin-bottom: 20px;
-            padding: 12px;
+            margin-bottom: 25px;
+            padding: 15px;
             background-color: rgba(255, 220, 150, 0.2); 
             border-radius: 10px;
-            font-size: 0.95em; 
+            font-size: 1.1em; /* ফন্ট সাইজ বড় করা হলো */
             font-weight: bold;
             color: #ffebcd; 
         }
         
         /* ছবি আপলোড এবং প্রিভিউ ফিক্স */
         .image-upload-section {
-            margin: 20px 0 15px 0;
+            margin: 30px 0 20px 0;
             text-align: center;
         }
 
         .user-image {
-            width: 100px; 
-            height: 100px;
+            width: 120px; /* ছবির আকার সামান্য বাড়ানো হলো */
+            height: 120px;
             border-radius: 50%; 
-            object-fit: cover;
-            border: 3px solid #ffaa00; 
-            box-shadow: 0 0 10px rgba(255, 170, 0, 0.7); 
+            border: 4px solid #ffaa00; 
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.7); 
             animation: pulse 1.8s infinite alternate; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             display: block; 
             margin-left: auto;
             margin-right: auto;
@@ -106,39 +106,24 @@
         .upload-label {
             display: block; 
             width: 90%;
-            margin: 0 auto 15px auto; 
+            margin: 0 auto 20px auto; 
             background: linear-gradient(135deg, #ff9900, #ff6600); 
             color: white;
-            padding: 10px 12px; 
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95em; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s ease-in-out;
+            padding: 12px 15px; /* প্যাডিং বাড়ানো হলো */
+            border-radius: 8px;
+            font-size: 1.1em; /* ফন্ট সাইজ বড় করা হলো */
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
         }
 
-        #imageUpload {
-            display: none; 
-        }
-
-        #userNameDisplay {
-            color: #ffcc00; 
-            margin-top: 8px; 
-            font-size: 1em;
-            min-height: 1.1em; 
-        }
-        
         #nameInput {
             width: 90%; 
-            padding: 10px; 
+            padding: 12px; /* প্যাডিং বাড়ানো হলো */
             border: 2px solid #ffaa00;
-            border-radius: 5px;
+            border-radius: 8px;
             background-color: rgba(255, 255, 255, 0.1);
             color: #fff;
-            font-size: 0.95em; 
-            margin-bottom: 10px; 
-            text-align: center;
+            font-size: 1.1em; /* ফন্ট সাইজ বড় করা হলো */
+            margin-bottom: 15px; 
             box-sizing: border-box; 
             display: block; 
             margin-left: auto;
@@ -147,43 +132,34 @@
         
         /* শেয়ার বাটন */
         #shareBtn {
-            padding: 12px 15px; 
-            font-size: 1.05em;
-            margin-top: 20px;
+            padding: 15px 20px; /* প্যাডিং বাড়ানো হলো */
+            font-size: 1.2em; /* ফন্ট সাইজ বড় করা হলো */
+            margin-top: 30px;
             background: linear-gradient(135deg, #28a745, #218838); 
             width: 100%;
-            border: none;
             border-radius: 50px; 
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
 
         #shareBtn::before {
             content: '💬';
-            margin-right: 8px;
-            font-size: 1.1em;
+            margin-right: 10px;
+            font-size: 1.2em;
         }
-
-        .footer {
-            margin-top: 15px;
-            font-size: 0.75em; 
-            color: #bbb;
+        
+        /* অন্যান্য টেক্সট */
+        .footer, #userNameDisplay {
+            font-size: 1em; 
         }
 
         /* AdSense Area Styling */
         .adsense-area {
-            max-width: 350px; 
-            width: 90%; 
-            margin: 10px auto; 
-            padding: 8px;
-            border-radius: 5px;
+            max-width: 450px; 
+            width: 95%; 
+            margin: 15px auto; /* মার্জিন বাড়ানো হলো */
+            padding: 10px;
             border: 1px dashed #ffaa00;
-            min-height: 50px; 
+            min-height: 70px; /* উচ্চতা বাড়ানো হলো */
             display: flex; 
             justify-content: center;
             align-items: center;
@@ -219,7 +195,7 @@
             
             <p id="userNameDisplay"></p>
             
-            <p style="color:#888; margin-top:5px; font-size: 0.7em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
+            <p style="color:#888; margin-top:5px; font-size: 0.8em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
         </div>
 
         <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
@@ -248,15 +224,14 @@
             const imgData = params.get('i');
 
             if (name) {
-                // নাম পেলে ইনপুট ফিল্ড ও ডিসপ্লে আপডেট করুন
-                nameInput.value = decodeURIComponent(name);
-                userNameDisplay.textContent = `— ${decodeURIComponent(name)} এর পক্ষ থেকে`;
+                const decodedName = decodeURIComponent(name);
+                nameInput.value = decodedName;
+                userNameDisplay.textContent = `— ${decodedName} এর পক্ষ থেকে`;
                 
                 // শিরোনাম আপডেট করুন (যেমন: Achintya এর তরফ থেকে...)
-                document.querySelector('h2').textContent = `${decodeURIComponent(name)} এর তরফ থেকে আপনার ও আপনার পরিবারকে শুভ দীপাবলি!`;
+                document.querySelector('h2').textContent = `${decodedName} এর তরফ থেকে আপনার ও আপনার পরিবারকে শুভ দীপাবলি!`;
                 
             } else {
-                // নাম না পেলে ডিফল্ট বার্তা দেখান
                 nameInput.value = '';
                 userNameDisplay.textContent = '';
                 document.querySelector('h2').textContent = `আপনার জীবন আলোয় ভরে উঠুক!`;
@@ -319,7 +294,6 @@
             const baseUrl = window.location.origin + window.location.pathname;
             const newShareLink = `${baseUrl}?${newParams.toString()}`;
 
-            // বার্তার মধ্যে প্রথম ব্যক্তির নাম না দিয়ে একটি জেনেরিক বার্তা রাখা হলো
             const shareText = `🎉🪔 আপনার জন্য একটি বিশেষ ব্যক্তিগত শুভেচ্ছা বার্তা এসেছে। দীপাবলির আলোয় আপনার জীবন ভরে উঠুক। দেখতে ক্লিক করুন: `;
             const fullMessage = shareText + newShareLink;
             
@@ -372,7 +346,6 @@
             }
         }, 300); 
 
-        // পেজ লোড হওয়ার পর URL থেকে ডেটা লোড করুন
         window.onload = loadDataFromURL;
 
     </script>
