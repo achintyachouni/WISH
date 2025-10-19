@@ -1,222 +1,621 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>শুভ দীপাবলি - আপনার শুভেচ্ছা ✨</title>
-    <style>
-        /* CSS Styling */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0a0a0a; 
-            color: #fff; 
-            display: flex;
-            flex-direction: column; 
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            text-align: center;
-            overflow-x: hidden; 
-            position: relative;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>শুভ দীপাবলি — share your wishes</title>
+  <meta name="description" content="Upload your photo, enter your name and share a Diwali greeting via WhatsApp. Optimized for mobile.">
+  <style>
+    /* Reset & base */
+    :root{
+      --bg:#0b1020;
+      --card:#0f1724;
+      --accent1:#FCA311; /* orange */
+      --accent2:#FFD54D; /* gold-ish */
+      --soft:#E5E5E5;
+      --glass: rgba(255,255,255,0.04);
+      --btn-grad: linear-gradient(135deg, #FF7A18 0%, #FFDD00 100%);
+      --btn-shadow: 0 8px 20px rgba(0,0,0,0.45);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(252,163,17,0.06), transparent 10%),
+        linear-gradient(180deg, #06070a 0%, #0b1020 100%);
+      color:var(--soft);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-        /* কেন্দ্রীয় কন্টেইনার */
-        .container {
-            background-color: rgba(255, 255, 255, 0.1); 
-            padding: 25px 15px; 
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            max-width: 380px; 
-            width: 90%; 
-            border: 3px solid #ff7722; 
-            position: relative; 
-            z-index: 1; 
-            margin: 20px auto; 
-            overflow: hidden; 
-        }
+    /* Page wrapper */
+    .wrap{
+      width:100%;
+      max-width:420px;
+      margin:auto;
+    }
 
-        /* ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন (কন্টেইনারের ভিতরে) */
-        .fireworks {
-            position: absolute; 
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0;
-            opacity: 0.8; 
-        }
+    /* Adsense placeholders (non-blocking, small heights) */
+    .adsense-area{
+      width:100%;
+      min-height:64px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:rgba(255,255,255,0.45);
+      font-size:12px;
+      margin:10px 0;
+      pointer-events:none; /* placeholder only */
+    }
 
-        .particle {
-            position: absolute;
-            background-color: #ffd700; 
-            border-radius: 50%;
-            animation: spark 3s ease-out forwards; 
-        }
-        
-        @keyframes spark {
-            0% { transform: translate(0, 0) scale(0); opacity: 1; }
-            100% { transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0); opacity: 0; }
-        }
-        
-        /* শিরোনাম ও মেসেজ */
-        h1 {
-            color: #ffd700; 
-            font-size: 2.1em; 
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4);
-        }
+    /* Square container */
+    .card{
+      width:100%;
+      aspect-ratio:1 / 1;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:18px;
+      overflow:hidden;
+      position:relative;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
 
-        h2 {
-            color: #90ee90; 
-            font-size: 1.1em; 
-            margin-bottom: 15px;
-        }
+    /* confetti canvas sits over card content but clipped to box */
+    .confetti-canvas{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      z-index:1;
+      mix-blend-mode:screen;
+    }
 
-        .message {
-            margin-bottom: 20px;
-            padding: 12px;
-            background-color: rgba(255, 220, 150, 0.2); 
-            border-radius: 10px;
-            font-size: 0.95em; 
-            font-weight: bold;
-            color: #ffebcd; 
-        }
-        
-        /* ছবি আপলোড এবং প্রিভিউ ফিক্স */
-        .image-upload-section {
-            margin: 20px 0 15px 0;
-            text-align: center;
-        }
+    .content{
+      position:relative; z-index:2;
+      display:flex;
+      flex:1;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:12px;
+      text-align:center;
+    }
 
-        .user-image {
-            width: 100px; 
-            height: 100px;
-            border-radius: 50%; 
-            object-fit: cover;
-            border: 3px solid #ffaa00; 
-            box-shadow: 0 0 10px rgba(255, 170, 0, 0.7); 
-            animation: pulse 1.8s infinite alternate; 
-            margin-bottom: 15px; /* ইনপুট থেকে দূরত্ব */
-            display: block; 
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #333; 
-        }
+    .logo{
+      font-weight:700;
+      letter-spacing:0.6px;
+      color:var(--accent2);
+      font-size:14px;
+      text-transform:uppercase;
+      display:flex;
+      gap:8px;
+      align-items:center;
+    }
 
-        /* কাস্টম আপলোড বাটন */
-        .upload-label {
-            display: block; /* সম্পূর্ণ প্রস্থে ডিসপ্লে */
-            width: 90%;
-            margin: 0 auto 15px auto; /* কেন্দ্রে আনতে */
-            background: linear-gradient(135deg, #ff9900, #ff6600); 
-            color: white;
-            padding: 10px 12px; 
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.95em; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
+    .preview {
+      width:40%;
+      aspect-ratio:1/1;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:2px dashed rgba(255,255,255,0.04);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    }
+    .preview img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .placeholder-ikon{
+      font-size:28px;
+      color:rgba(255,255,255,0.15);
+    }
 
-        #imageUpload {
-            display: none; 
-        }
+    input[type="file"]{
+      display:none;
+    }
 
-        #userNameDisplay {
-            color: #ffcc00; 
-            margin-top: 8px; 
-            font-size: 1em;
-            min-height: 1.1em; 
-        }
-        
-        /* নাম লেখার ইনপুট */
-        #nameInput {
-            width: 90%; 
-            padding: 10px; /* প্যাডিং বাড়ানো হলো */
-            border: 2px solid #ffaa00;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 0.95em; 
-            margin-bottom: 10px; 
-            text-align: center;
-            box-sizing: border-box; 
-            display: block; /* পূর্ণ প্রস্থে ডিসপ্লে */
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        /* শেয়ার বাটন */
-        #shareBtn {
-            padding: 12px 15px; /* প্যাডিং বাড়ানো হলো */
-            font-size: 1.05em;
-            margin-top: 20px;
-            background: linear-gradient(135deg, #28a745, #218838); 
-            width: 100%;
-            border-radius: 50px; /* গোলাকার বাটন */
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-        }
+    .name-input{
+      width:100%;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:center;
+    }
+    .name-input input[type="text"]{
+      flex:1;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:var(--soft);
+      font-size:15px;
+      outline:none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.01);
+    }
 
-        #shareBtn::before {
-            content: '💬';
-            margin-right: 8px;
-            font-size: 1.1em;
-        }
+    .controls{
+      width:100%;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
 
-        .footer {
-            margin-top: 15px;
-            font-size: 0.75em; 
-            color: #bbb;
-        }
+    .btn{
+      flex:1;
+      min-width:120px;
+      padding:11px 14px;
+      border-radius:12px;
+      border:none;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      box-shadow: var(--btn-shadow);
+      transition:transform .14s ease, box-shadow .14s ease;
+    }
+    .btn:active{ transform:translateY(1px) }
 
-        /* AdSense Area Styling */
-        .adsense-area {
-            max-width: 350px; 
-            width: 90%; 
-            margin: 10px auto; 
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px dashed #ffaa00;
-            min-height: 50px; /* উচ্চতা কমানো হলো */
-            display: flex; 
-            justify-content: center;
-            align-items: center;
-            color: yellow; /* টেক্সট হলুদ দেখানো */
-        }
-    </style>
+    .btn-upload{
+      background: linear-gradient(135deg, #6EE7B7 0%, #3B82F6 100%);
+      color:#071025;
+    }
+    .btn-share{
+      background: var(--btn-grad);
+      color:#221b00;
+    }
+
+    .small{
+      font-size:12px;
+      color:rgba(255,255,255,0.6);
+      margin-top:4px;
+    }
+
+    /* Link & copy */
+    .link-row{
+      width:100%;
+      display:flex;
+      gap:8px;
+      margin-top:6px;
+    }
+    .link-row .copy-btn{
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.04);
+      background:transparent;
+      color:var(--soft);
+      font-size:13px;
+      cursor:pointer;
+    }
+
+    /* footer note */
+    .note{
+      font-size:12px;
+      color:rgba(255,255,255,0.5);
+      text-align:center;
+      margin-top:8px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width:420px){
+      .logo{ font-size:12px }
+      .preview{ width:46% }
+      .btn{ padding:10px 8px; font-size:14px }
+    }
+
+    /* subtle decorative diya icon */
+    .diya{
+      width:44px;height:44px;border-radius:10px;
+      background: radial-gradient(circle at 30% 30%, #FFECB3, #FFD54D 40%, transparent 70%);
+      display:inline-flex;align-items:center;justify-content:center;
+      box-shadow: 0 6px 20px rgba(252,163,17,0.18), inset 0 -6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* tiny toast */
+    .toast{
+      position:fixed;left:50%;transform:translateX(-50%);
+      bottom:22px;background:rgba(0,0,0,0.7);padding:8px 12px;border-radius:8px;color:#fff;font-size:13px;
+      z-index:9999;opacity:0;transition:opacity .2s ease;
+    }
+    .toast.show{opacity:1}
+
+  </style>
 </head>
 <body>
-    <div class="adsense-area">
-        <p>[AdSense Advertisement Area - Top]</p>
+  <div class="wrap" role="main">
+    <!-- AdSense placeholder on top -->
+    <div class="adsense-area" aria-hidden="true">AdSense placeholder (top)</div>
+
+    <div class="card" id="card">
+      <!-- confetti canvas -->
+      <canvas class="confetti-canvas" id="confetti"></canvas>
+
+      <div class="content" aria-live="polite">
+        <div class="logo">
+          <div class="diya" aria-hidden="true">🪔</div>
+          <div>
+            <div>Shuvo Deepaboli</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.45)">Share your festive wish</div>
+          </div>
+        </div>
+
+        <div class="preview" id="preview" aria-label="uploaded photo preview">
+          <div class="placeholder-ikon" id="placeholder">📸</div>
+          <!-- image inserted here -->
+        </div>
+
+        <label for="file" class="btn btn-upload" id="uploadLabel" style="cursor:pointer;">
+          <input id="file" type="file" accept="image/*" />
+          আপলোড করুন
+        </label>
+
+        <div class="name-input">
+          <input type="text" id="name" placeholder="আপনার নাম লিখুন" maxlength="60" />
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-share" id="shareBtn" title="Share via WhatsApp">WhatsApp দিয়ে শেয়ার করুন</button>
+          <button class="btn" id="copyBtn" style="background:transparent;border:1px solid rgba(255,255,255,0.06)">লিংক কপি করুন</button>
+        </div>
+
+        <div class="small" id="info">আপলোড সীমা ১০ MB। বড় ছবি URL-কে দীর্ঘ করবে — আমরা স্বয়ংক্রিয়ভাবে ছবিটা স্কেল করে কমপ্রেস করে রাখবো।</div>
+
+        <div class="link-row" aria-hidden="true" id="linkRow" style="display:none">
+          <input id="generatedLink" readonly style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.02);color:var(--soft)" />
+          <button class="copy-btn" id="copyQuick">Copy</button>
+        </div>
+
+      </div>
     </div>
 
-    <div class="container">
-        
-<div class="fireworks" id="fireworks-container"></div> 
+    <!-- AdSense placeholder on bottom -->
+    <div class="adsense-area" aria-hidden="true">AdSense placeholder (bottom)</div>
 
-        <h1>🪔 শুভ দীপাবলি! 🪔</h1>
-        <h2>আপনার জীবন আলোয় ভরে উঠুক!</h2>
+    <div class="note">লিংক খুললে ছবি ও নাম একসাথে দেখা যাবে। যদি লিংক খুব বড় হয়, WhatsApp বটল/ব্রাউজার সমস্যা হলে 'Copy' ব্যবহার করুন।</div>
+  </div>
 
-        <div class="message">
-            "এই দীপাবলি আপনার জীবনে আনন্দ, সুস্বাস্থ্য এবং সমৃদ্ধি নিয়ে আসুক।"
-        </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-        <div class="image-upload-section">
-            <img id="imagePreview" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk1IiBmaWxsPSIjRkZEMzAwIi8+CiAgPHRleHQgeD0iMTAwIiB5PSIxMDUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIj4KICAgICNBSU1BR0UKICA8L3RleHQ+Cjwvc3ZnPg==" alt="ছবি প্রিভিউ" class="user-image">
-            
-            <label for="imageUpload" class="upload-label">
-                📸 আপনার ছবি আপলোড করুন
-            </label>
-            <input type="file" id="imageUpload" accept="image/*">
-            
-            <input type="text" id="nameInput" placeholder="এখানে আপনার নাম লিখুন..." maxlength="30">
-            
-            <p id="userNameDisplay"></p>
-            
-            <p style="color:#888; margin-top:5px; font-size: 0.7em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
-        </div>
+  <script>
+  (function(){
+    'use strict';
 
-        <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
+    // Elements
+    const fileInput = document.getElementById('file');
+    const preview = document.getElementById('preview');
+    const placeholder = document.getElementById('placeholder');
+    const nameInput = document.getElementById('name');
+    const shareBtn = document.getElementById('shareBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const linkRow = document.getElementById('linkRow');
+    const generatedLink = document.getElementById('generatedLink');
+    const copyQuick = document.getElementById('copyQuick');
+    const toast = document.getElementById('toast');
+    const confettiCanvas = document.getElementById('confetti');
+    const cardEl = document.getElementById('card');
 
-        <p class="footer">এই বিশেষ দিনে আপনার প্রিয়জনদের সাথে আনন্দ ভাগ করে নিন।</
+    // constants
+    const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
+    const MAX_DIMENSION = 900; // max width/height to scale down for URL (keeps size reasonable)
+    const JPEG_QUALITY = 0.78; // compression quality
+
+    // state
+    let lastDataUrl = null;
+
+    // helper: show toast
+    function showToast(msg, ms=2200){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toast._t);
+      toast._t = setTimeout(()=> toast.classList.remove('show'), ms);
+    }
+
+    // process file -> returns Promise<base64DataUrl>
+    function processFile(file){
+      return new Promise((resolve, reject) => {
+        if (!file) return reject(new Error('No file'));
+        if (file.size > MAX_FILE_BYTES){
+          return reject(new Error('File exceeds 10 MB limit.'));
+        }
+
+        const fr = new FileReader();
+        fr.onerror = () => reject(new Error('Failed reading file.'));
+        fr.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            // scale down if needed
+            let w = img.width, h = img.height;
+            let scale = 1;
+            if (Math.max(w,h) > MAX_DIMENSION){
+              scale = MAX_DIMENSION / Math.max(w,h);
+              w = Math.round(w * scale);
+              h = Math.round(h * scale);
+            }
+            // draw to canvas
+            const c = document.createElement('canvas');
+            c.width = w;
+            c.height = h;
+            const ctx = c.getContext('2d');
+            // fill background white for JPEG (avoid black transparent)
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0,0,w,h);
+            ctx.drawImage(img,0,0,w,h);
+
+            // toDataURL compressed
+            try {
+              const dataUrl = c.toDataURL('image/jpeg', JPEG_QUALITY);
+              resolve(dataUrl);
+            } catch (err) {
+              // fallback to original if something odd
+              resolve(fr.result);
+            }
+          };
+          img.onerror = () => reject(new Error('Invalid image file.'));
+          img.src = fr.result;
+        };
+        fr.readAsDataURL(file);
+      });
+    }
+
+    // render preview image
+    function setPreview(dataUrl){
+      // remove existing image if any
+      const existing = preview.querySelector('img');
+      if (existing) existing.remove();
+      if (dataUrl){
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.alt = 'Uploaded';
+        preview.appendChild(img);
+        placeholder.style.display = 'none';
+      } else {
+        placeholder.style.display = '';
+      }
+    }
+
+    // build share link with URL params
+    function buildLink(name, dataUrl){
+      const base = window.location.origin + window.location.pathname;
+      const params = new URLSearchParams();
+      if (name) params.set('name', name.trim());
+      if (dataUrl) params.set('img', dataUrl);
+      return base + '?' + params.toString();
+    }
+
+    // create and show link + copy to clipboard
+    async function generateAndShowLink(){
+      const name = nameInput.value || '';
+      if (!lastDataUrl && !name){
+        showToast('কমপক্ষে একটি নাম লিখুন বা একটি ছবি আপলোড করুন।');
+        return;
+      }
+      const link = buildLink(name, lastDataUrl);
+      generatedLink.value = link;
+      linkRow.style.display = 'flex';
+      showToast('লিংক তৈরি হয়েছে। WhatsApp খুলুন অথবা কপি করুন।');
+      return link;
+    }
+
+    // copy helper
+    async function copyToClipboard(text){
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('কপি হয়েছে');
+      } catch (err){
+        // fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position='fixed';ta.style.left='-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); showToast('কপি হয়েছে'); } catch(e){ showToast('কপি ব্যর্থ'); }
+        ta.remove();
+      }
+    }
+
+    // Event bindings
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) { showToast('অনুগ্রহ করে একটি ছবি আপলোড করুন।'); return; }
+      if (file.size > MAX_FILE_BYTES){
+        showToast('ফাইল ১০MB এর বেশি — আপলোড সম্ভব নয়।');
+        return;
+      }
+      showToast('ছবি প্রসেস করা হচ্ছে...');
+      try {
+        // Offload heavy processing to Promise chain (non-blocking)
+        const dataUrl = await processFile(file);
+        lastDataUrl = dataUrl;
+        setPreview(dataUrl);
+
+        // size info
+        const approxBytes = Math.ceil((dataUrl.length - ('data:image/jpeg;base64,'.length)) * 3 / 4);
+        const kb = Math.round(approxBytes / 102.4)/10;
+        const warn = (approxBytes > 200000) ? ' (লিংক বড় হতে পারে)' : '';
+        document.getElementById('info').textContent = `প্রসেস করা হয়েছে — আনুমানিক ${Math.round(approxBytes/1024)} KB${warn}. আপলোড সীমা ১০ MB।`;
+      } catch (err){
+        console.error(err);
+        showToast(err.message || 'প্রসেসিংএ ত্রুটি');
+      }
+    });
+
+    shareBtn.addEventListener('click', async ()=>{
+      const link = await generateAndShowLink();
+      if (!link) return;
+      // use WhatsApp share (wa.me)
+      const wa = 'https://wa.me/?text=' + encodeURIComponent(link);
+      // open in new tab/window
+      window.open(wa, '_blank');
+    });
+
+    copyBtn.addEventListener('click', async ()=>{
+      const link = await generateAndShowLink();
+      if (!link) return;
+      await copyToClipboard(link);
+    });
+
+    copyQuick.addEventListener('click', async ()=>{
+      if (generatedLink.value) await copyToClipboard(generatedLink.value);
+    });
+
+    // On page load, parse URL params if any and show image + name
+    function parseUrlAndPopulate(){
+      const params = new URLSearchParams(window.location.search);
+      const nm = params.get('name');
+      const img = params.get('img');
+      if (nm) { nameInput.value = nm; }
+      if (img){
+        // img may be large data URL; set preview
+        lastDataUrl = img;
+        setPreview(img);
+      }
+    }
+    parseUrlAndPopulate();
+
+    // --- Confetti / golden crackers animation (within the card) ---
+    // Lightweight particle system using canvas, clipped to card size.
+    (function confetti(){
+      const canvas = confettiCanvas;
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      let w=0,h=0;
+      function resize(){
+        const rect = cardEl.getBoundingClientRect();
+        w = Math.floor(rect.width);
+        h = Math.floor(rect.height);
+        canvas.width = w * devicePixelRatio;
+        canvas.height = h * devicePixelRatio;
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+      }
+      function rand(min,max){ return Math.random()*(max-min)+min; }
+      function spawn(){
+        // small burst of golden flakes near top occasionally
+        const count = Math.floor(rand(4,12));
+        for(let i=0;i<count;i++){
+          particles.push({
+            x: rand(w*0.2, w*0.8),
+            y: rand(0, h*0.2),
+            vx: rand(-0.6,0.6),
+            vy: rand(0.6, 2.4),
+            size: rand(3,9),
+            life: rand(2200,5200),
+            t:0,
+            rot: rand(0,Math.PI*2),
+            color: ['#FFD700','#FFD54D','#FFB703'][Math.floor(rand(0,3))],
+            shape: Math.random() > 0.5 ? 'rect' : 'circle'
+          });
+        }
+      }
+      function update(dt){
+        for (let i=particles.length-1;i>=0;i--){
+          const p = particles[i];
+          p.t += dt;
+          p.x += p.vx * (dt/16);
+          p.y += p.vy * (dt/16);
+          p.vy += 0.02 * (dt/16); // gravity
+          p.rot += 0.06;
+          if (p.t > p.life || p.y - p.size > h) particles.splice(i,1);
+        }
+      }
+      function draw(){
+        ctx.clearRect(0,0,w,h);
+        ctx.globalCompositeOperation = 'screen';
+        for(const p of particles){
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          if (p.shape === 'rect'){
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size*0.6);
+          } else {
+            const g = ctx.createRadialGradient(0,0,p.size*0.1,0,0,p.size);
+            g.addColorStop(0,'#fff');
+            g.addColorStop(0.5,p.color);
+            g.addColorStop(1,'rgba(255,255,255,0)');
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(0,0,p.size/2,0,Math.PI*2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
+        ctx.globalCompositeOperation = 'source-over';
+      }
+
+      let last = performance.now();
+      let acc = 0;
+      function loop(now){
+        resizeIfNeeded();
+        const dt = Math.min(now-last, 60);
+        last = now;
+        acc += dt;
+        if (acc > 4000){
+          // periodic bursts
+          spawn();
+          acc = 0;
+        }
+        update(dt);
+        draw();
+        requestAnimationFrame(loop);
+      }
+
+      let lastRect = null;
+      function resizeIfNeeded(){
+        const rect = cardEl.getBoundingClientRect();
+        if (!lastRect || lastRect.width !== rect.width || lastRect.height !== rect.height){
+          lastRect = rect;
+          resize();
+        }
+      }
+
+      // start light initial burst
+      spawn();
+      requestAnimationFrame(loop);
+    })();
+
+    // Accessibility: keyboard support for upload label
+    document.getElementById('uploadLabel').addEventListener('keydown', (e)=>{
+      if (e.key === 'Enter' || e.key === ' ') fileInput.click();
+    });
+
+    // Security / UX note: warn user when creating very large links
+    (function warnLargeURLs(){
+      const observer = new MutationObserver(() => {
+        if (!generatedLink.value) return;
+        try {
+          const L = generatedLink.value.length;
+          if (L > 5000){
+            document.getElementById('info').textContent = 'নোট: লিংক খুব বড় — কিছু প্ল্যাটফর্মে সমস্যা হতে পারে। "কপি" করে শেয়ার করুন।';
+          }
+        } catch(e){}
+      });
+      observer.observe(generatedLink, {attributes:true, childList:true, subtree:true});
+    })();
+
+    // On first use small hint
+    setTimeout(()=> showToast('ছবি আপলোড করুন এবং নাম লিখে WhatsApp-এ শেয়ার করুন'), 700);
+
+  })();
+  </script>
+</body>
+</html>
