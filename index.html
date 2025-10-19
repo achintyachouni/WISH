@@ -35,7 +35,6 @@
             background-color: #ffcc00; 
             border-radius: 50%;
             opacity: 0;
-            /* অ্যানিমেশন ডিউরেশন 2s থেকে 3s এ বাড়ানো হয়েছে */
             animation: spark 3s ease-out forwards infinite; 
         }
 
@@ -55,26 +54,27 @@
 
         .container {
             background-color: rgba(255, 255, 255, 0.1); 
-            padding: 30px 20px; /* প্যাডিং কমানো হলো */
+            padding: 30px 20px; 
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 400px; /* সর্বোচ্চ প্রস্থ কমানো হলো */
-            width: 95%; /* মোবাইলের পুরো প্রস্থ ব্যবহার করবে */
+            max-width: 400px; 
+            width: 95%; 
             border: 3px solid #ff7722; 
             position: relative;
             z-index: 1; 
+            margin: 20px auto; /* উপরে-নীচে মার্জিন যোগ করা হলো */
         }
 
         h1 {
             color: #ffd700; 
-            font-size: 2.2em; /* ফন্ট সাইজ কমানো হলো */
+            font-size: 2.2em; 
             margin-bottom: 5px;
             text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
         }
 
         h2 {
             color: #90ee90; 
-            font-size: 1.3em; /* ফন্ট সাইজ কমানো হলো */
+            font-size: 1.3em; 
             margin-bottom: 20px;
         }
 
@@ -83,23 +83,22 @@
             padding: 15px;
             background-color: rgba(255, 220, 150, 0.2); 
             border-radius: 10px;
-            font-size: 1.1em; /* ফন্ট সাইজ কমানো হলো */
+            font-size: 1.1em; 
             font-weight: bold;
             color: #ffebcd; 
         }
 
-        /* ছবি আপলোড এবং প্রিভিউ স্টাইল */
         .image-upload-section {
             margin: 20px 0 15px 0;
             text-align: center;
         }
 
         .user-image {
-            width: 120px; /* ছবির সাইজ কমানো হলো */
+            width: 120px; 
             height: 120px;
             border-radius: 50%; 
             object-fit: cover;
-            border: 3px solid #ffaa00; /* বর্ডার কমানো হলো */
+            border: 3px solid #ffaa00; 
             box-shadow: 0 0 10px rgba(255, 170, 0, 0.7); 
             animation: pulse 2s infinite alternate; 
             margin-bottom: 10px;
@@ -112,7 +111,7 @@
             display: inline-block;
             background-color: #ffaa00; 
             color: #0a0a0a;
-            padding: 8px 15px; /* প্যাডিং কমানো হলো */
+            padding: 8px 15px; 
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
@@ -124,7 +123,6 @@
             display: none; 
         }
 
-        /* নাম লেখার ইনপুট স্টাইল */
         #userNameDisplay {
             color: #ffcc00; 
             margin-top: 8px; 
@@ -133,31 +131,65 @@
         }
         
         #nameInput {
-            width: 90%; /* মোবাইলের জন্য প্রস্থ বাড়ানো হলো */
+            width: 90%; 
             padding: 8px;
+            border: 2px solid #ffaa00;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
             font-size: 0.9em;
             margin-bottom: 15px;
+            text-align: center;
         }
         
-        /* WhatsApp শেয়ার বাটন */
         #shareBtn {
-            padding: 12px 20px; /* প্যাডিং কমানো হলো */
+            padding: 12px 20px; 
             font-size: 1.1em;
             margin-top: 20px;
+            background-color: #25d366; 
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         #shareBtn::before {
+            content: '💬';
+            margin-right: 10px;
             font-size: 1.2em;
         }
 
         .footer {
             margin-top: 15px;
             font-size: 0.8em;
+            color: #bbb;
+        }
+
+        /* AdSense Area Styling */
+        .adsense-area {
+            width: 100%;
+            max-width: 320px; /* মোবাইলের জন্য স্ট্যান্ডার্ড সাইজ */
+            margin: 20px auto 0 auto; 
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px dashed #ffaa00;
+            color: #fff;
+            font-size: 0.8em;
         }
     </style>
 </head>
 <body>
     <div class="fireworks" id="fireworks-container"></div> 
+
+    <div class="adsense-area">
+        <p style="color: yellow;">[AdSense Advertisement Area - 1]</p>
+        </div>
 
     <div class="container">
         <h1>🪔 শুভ দীপাবলি! 🪔</h1>
@@ -179,12 +211,16 @@
             
             <p id="userNameDisplay"></p>
             
-            <p style="color:#888; margin-top:5px; font-size: 0.7em;">(ছোট ছবি ব্যবহার করুন, নাহলে লিঙ্কটি খুব বড় হয়ে যাবে।)</p>
+            <p style="color:#888; margin-top:5px; font-size: 0.7em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
         </div>
 
         <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
 
         <p class="footer">এই বিশেষ দিনে আপনার প্রিয়জনদের সাথে আনন্দ ভাগ করে নিন।</p>
+    </div>
+
+    <div class="adsense-area">
+        <p style="color: yellow;">[AdSense Advertisement Area - 2]</p>
     </div>
 
     <script>
@@ -195,8 +231,9 @@
         const nameInput = document.getElementById('nameInput');
         const userNameDisplay = document.getElementById('userNameDisplay');
         const shareBtn = document.getElementById('shareBtn');
+        const MAX_FILE_SIZE_MB = 10; // **ছবির সাইজ সীমা ১০ MB করা হলো**
         
-        // ফাংশন: URL থেকে নাম এবং ছবি লোড করা
+        // ফাংশন: URL থেকে নাম এবং ছবি লোড করা (আগের মতোই)
         function loadDataFromURL() {
             const params = new URLSearchParams(window.location.search);
             const name = params.get('n');
@@ -211,9 +248,7 @@
             }
 
             if (imgData) {
-                // Base64 ডেটা দিয়ে ছবি লোড করা
                 try {
-                    // প্রিফিক্স যোগ করা: যেহেতু আমরা URL ছোট করার জন্য প্রিফিক্স (data:image/jpeg;base64,) বাদ দিয়েছিলাম
                     const fullBase64 = imgData.startsWith('data:image/') ? imgData : `data:image/jpeg;base64,${imgData}`;
                     imagePreview.src = decodeURIComponent(fullBase64);
                 } catch (e) {
@@ -229,9 +264,9 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            // **মোবাইল অপটিমাইজেশন: ছবির আকারের সীমা (1 MB)**
-            if (file.size > 1024 * 1024 * 1) { 
-                alert("ছবির আকার 1 MB এর বেশি। পারফরম্যান্স ভালো রাখার জন্য একটি ছোট ছবি ব্যবহার করুন।");
+            // **ছবির আকার সীমা চেক করা হলো (10 MB)**
+            if (file.size > 1024 * 1024 * MAX_FILE_SIZE_MB) { 
+                alert(`ছবির আকার ${MAX_FILE_SIZE_MB} MB এর বেশি। পারফরম্যান্স এবং শেয়ারিং-এর সুবিধার জন্য এর চেয়ে ছোট ছবি ব্যবহার করুন।`);
                 event.target.value = null;
                 imagePreview.src = defaultImage;
                 return;
@@ -253,19 +288,17 @@
         });
 
 
-        // 3. WhatsApp শেয়ার হ্যান্ডলিং - URL তৈরি এবং এনকোড
+        // 3. WhatsApp শেয়ার হ্যান্ডলিং (আগের মতোই)
         shareBtn.addEventListener('click', function() {
             const currentName = nameInput.value.trim();
             const currentImgData = imagePreview.src;
             
             const newParams = new URLSearchParams();
             
-            // 1. নাম যোগ করা
             if (currentName) {
                 newParams.set('n', encodeURIComponent(currentName));
             }
             
-            // 2. ছবি যোগ করা (যদি ডিফল্ট ছবি না হয়)
             if (currentImgData && currentImgData !== defaultImage) {
                 // Base64 ডেটা URL থেকে "data:image/jpeg;base64," অংশটি বাদ দেওয়া
                 const base64Data = currentImgData.split(',')[1] || currentImgData; 
@@ -290,17 +323,17 @@
         function createParticle(x, y) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            const size = Math.random() * 4 + 1; // আকার কমানো হলো
+            const size = Math.random() * 4 + 1; 
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
             particle.style.left = `${x}px`;
             particle.style.top = `${y}px`;
 
-            const moveX = (Math.random() - 0.5) * 150; // মুভমেন্ট কমানো হলো
+            const moveX = (Math.random() - 0.5) * 150; 
             const moveY = (Math.random() - 0.5) * 150; 
             particle.style.setProperty('--x', moveX);
             particle.style.setProperty('--y', moveY);
-            particle.style.animationDelay = `${Math.random() * 3}s`; // ডিলে বাড়ানো হলো
+            particle.style.animationDelay = `${Math.random() * 3}s`; 
 
             fireworksContainer.appendChild(particle);
 
@@ -309,18 +342,15 @@
             });
         }
         
-        // **মোবাইল অপটিমাইজেশন: কণা তৈরির ব্যবধান 200ms থেকে 400ms এ বাড়ানো হলো**
         setInterval(() => {
-            // শুধুমাত্র কিছু ক্ষেত্রে কণা তৈরি করা হবে, সব জায়গায় নয়
-            if (Math.random() > 0.6) { // 40% চান্স
+            if (Math.random() > 0.6) { 
                 const randomX = Math.random() * window.innerWidth;
                 const randomY = Math.random() * window.innerHeight;
-                for (let i = 0; i < 5; i++) { // প্রতি বারে কণার সংখ্যা কমানো হলো
+                for (let i = 0; i < 5; i++) {
                     createParticle(randomX, randomY);
                 }
             }
-        }, 400); // 400ms এ একবার চেক করা হবে
-
+        }, 400); 
 
         // পেজ লোড হওয়ার পর URL থেকে ডেটা লোড করুন
         window.onload = loadDataFromURL;
