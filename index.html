@@ -8,117 +8,217 @@
         /* CSS Styling */
         body {
             font-family: 'Arial', sans-serif;
-            background: #0a0a0a; 
+            background: #0a0a0a; /* গভীর কালো ব্যাকগ্রাউন্ড */
             color: #fff; 
             display: flex;
-            flex-direction: column; /* উল্লম্বভাবে সাজানোর জন্য */
+            flex-direction: column; 
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             text-align: center;
-            overflow-x: hidden; /* অনুভূমিক স্ক্রোলিং বন্ধ */
+            overflow-x: hidden; 
             position: relative;
         }
 
-        /* ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন এর মূল জায়গা */
+        .container {
+            background-color: rgba(255, 255, 255, 0.1); /* হালকা স্বচ্ছ কার্ড */
+            padding: 25px 15px; 
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            max-width: 380px; 
+            width: 90%; 
+            border: 3px solid #ff7722; /* কমলা বর্ডার */
+            position: relative; /* অ্যানিমেশন এর জন্য */
+            z-index: 1; 
+            margin: 20px auto; 
+            overflow: hidden; /* কন্টেইনারের বাইরে অ্যানিমেশন যাবে না */
+        }
+
+        /* কন্টেইনারের ভিতরে ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন */
         .fireworks {
-            position: fixed; /* ফিক্সড পজিশন, স্ক্রোল করলেও থাকবে */
+            position: absolute; /* কন্টেইনারের সাপেক্ষে */
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
             overflow: hidden;
             z-index: 0;
-            opacity: 0.7; /* স্বচ্ছতা কমানো হলো */
+            opacity: 0.8; 
         }
 
         .particle {
             position: absolute;
-            background-color: #ffcc00; 
+            background-color: #ffd700; /* সোনালী স্পার্কল */
             border-radius: 50%;
-            /* অ্যানিমেশন ডিউরেশন বাড়ানো হলো - আরও স্মুথ হবে */
-            animation: spark 4s ease-out forwards; 
+            animation: spark 3s ease-out forwards; /* অ্যানিমেশন ডিউরেশন কমানো হলো */
         }
         
-        /* শুধুমাত্র একবার অ্যানিমেশন চালানোর জন্য infinite সরানো হলো */
         @keyframes spark {
             0% {
                 transform: translate(0, 0) scale(0);
                 opacity: 1;
             }
             100% {
-                transform: translate(calc(var(--x) * 2px), calc(var(--y) * 2px)) scale(0);
+                transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0); /* স্প্রেড কমানো হলো */
                 opacity: 0;
             }
         }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.1); 
-            padding: 25px 15px; /* প্যাডিং আরও কমানো হলো */
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-            max-width: 380px; /* সর্বোচ্চ প্রস্থ কমানো হলো */
-            width: 90%; 
-            border: 3px solid #ff7722; 
-            position: relative;
-            z-index: 1; 
-            margin: 20px auto; 
-        }
-
         h1 {
-            font-size: 2em; /* ফন্ট সাইজ কমানো হলো */
+            color: #ffd700; 
+            font-size: 2.1em; /* ফন্ট সাইজ সামঞ্জস্য করা হলো */
             margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.4);
         }
 
         h2 {
-            font-size: 1.2em; 
+            color: #90ee90; 
+            font-size: 1.1em; 
             margin-bottom: 15px;
         }
 
         .message {
+            margin-bottom: 20px;
             padding: 12px;
-            font-size: 1em; 
+            background-color: rgba(255, 220, 150, 0.2); 
+            border-radius: 10px;
+            font-size: 0.95em; 
+            font-weight: bold;
+            color: #ffebcd; 
         }
         
+        /* ছবি আপলোড এবং প্রিভিউ স্টাইল */
+        .image-upload-section {
+            margin: 20px 0 15px 0;
+            text-align: center;
+        }
+
         .user-image {
-            width: 100px; /* ছবির সাইজ আরও কমানো হলো */
+            width: 100px; 
             height: 100px;
+            border-radius: 50%; 
+            object-fit: cover;
             border: 3px solid #ffaa00; 
+            box-shadow: 0 0 10px rgba(255, 170, 0, 0.7); 
+            animation: pulse 1.8s infinite alternate; /* অ্যানিমেশন গতি সামঞ্জস্য */
+            margin-bottom: 10px;
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .upload-label {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9900, #ff6600); /* কমলা রঙের বাটন */
+            color: white;
             padding: 7px 12px; 
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
             font-size: 0.85em;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
+        .upload-label:hover {
+            background: linear-gradient(135deg, #ff6600, #ff9900);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        #imageUpload {
+            display: none; 
+        }
+
+        #userNameDisplay {
+            color: #ffcc00; 
+            margin-top: 8px; 
+            font-size: 1em;
+            min-height: 1.1em; 
+        }
+        
         #nameInput {
             width: 90%; 
             padding: 7px;
+            border: 2px solid #ffaa00;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
             font-size: 0.85em;
+            margin-bottom: 15px;
+            text-align: center;
+            box-sizing: border-box; /* প্যাডিং সহ উইডথ গণনা */
         }
         
         #shareBtn {
             padding: 10px 15px; 
             font-size: 1em;
             margin-top: 15px;
+            background: linear-gradient(135deg, #28a745, #218838); /* WhatsApp সবুজ বাটন */
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
-        
+
+        #shareBtn:hover {
+            background: linear-gradient(135deg, #218838, #28a745);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        #shareBtn:active {
+            transform: scale(0.98);
+        }
+
+        #shareBtn::before {
+            content: '💬';
+            margin-right: 8px; /* আইকন এবং টেক্সটের মধ্যে স্পেস কমানো হলো */
+            font-size: 1.1em;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 0.75em; /* ফন্ট সাইজ কমানো হলো */
+            color: #bbb;
+        }
+
         /* AdSense Area Styling */
         .adsense-area {
-            max-width: 350px; /* মোবাইলের জন্য স্ট্যান্ডার্ড সাইজ */
+            max-width: 350px; 
+            width: 90%; /* কন্টেইনারের মতই প্রস্থ */
             margin: 10px auto; 
+            background-color: rgba(255, 255, 255, 0.05);
             padding: 8px;
+            border-radius: 5px;
+            border: 1px dashed #ffaa00;
+            color: #fff;
+            font-size: 0.8em;
+            min-height: 60px; /* বিজ্ঞাপনের জন্য ন্যূনতম উচ্চতা */
+            display: flex; /* সেন্টারে রাখার জন্য */
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <div class="fireworks" id="fireworks-container"></div> 
-
     <div class="adsense-area">
         <p style="color: yellow;">[AdSense Advertisement Area - Top]</p>
         </div>
 
     <div class="container">
+        <div class="fireworks" id="fireworks-container"></div> 
+
         <h1>🪔 শুভ দীপাবলি! 🪔</h1>
         <h2>আপনার জীবন আলোয় ভরে উঠুক!</h2>
 
@@ -160,7 +260,6 @@
         const shareBtn = document.getElementById('shareBtn');
         const MAX_FILE_SIZE_MB = 10;
         
-        // ফাংশন: URL থেকে নাম এবং ছবি লোড করা (আগের মতোই)
         function loadDataFromURL() {
             const params = new URLSearchParams(window.location.search);
             const name = params.get('n');
@@ -176,7 +275,6 @@
 
             if (imgData) {
                 try {
-                    // Base64 প্রিফিক্স যোগ করা
                     const fullBase64 = imgData.startsWith('data:image/') ? imgData : `data:image/jpeg;base64,${imgData}`;
                     imagePreview.src = decodeURIComponent(fullBase64);
                 } catch (e) {
@@ -187,7 +285,6 @@
             }
         }
 
-        // 1. ছবি আপলোড প্রিভিউ হ্যান্ডলিং
         document.getElementById('imageUpload').addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -206,14 +303,11 @@
             reader.readAsDataURL(file); 
         });
 
-        // 2. নাম ইনপুট হ্যান্ডলিং
         nameInput.addEventListener('input', function() {
             const name = this.value.trim();
             userNameDisplay.textContent = name ? `— ${name} এর পক্ষ থেকে` : '';
         });
 
-
-        // 3. WhatsApp শেয়ার হ্যান্ডলিং
         shareBtn.addEventListener('click', function() {
             const currentName = nameInput.value.trim();
             const currentImgData = imagePreview.src;
@@ -225,7 +319,6 @@
             }
             
             if (currentImgData && currentImgData !== defaultImage) {
-                // Base64 ডেটা URL থেকে "data:image/jpeg;base64," অংশটি বাদ দেওয়া
                 const base64Data = currentImgData.split(',')[1] || currentImgData; 
                 newParams.set('i', encodeURIComponent(base64Data));
             }
@@ -242,51 +335,53 @@
             window.open(whatsappUrl, '_blank');
         });
 
-        // 4. ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন স্ক্রিপ্ট (চূড়ান্ত অপটিমাইজড)
+        // ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন স্ক্রিপ্ট (কন্টেইনারের ভিতরে)
         const fireworksContainer = document.getElementById('fireworks-container');
 
-        function createParticle(x, y) {
+        function createParticle() {
             const particle = document.createElement('div');
             particle.classList.add('particle');
-            const size = Math.random() * 3 + 1; // আকার আরও কমানো হলো
+            const size = Math.random() * 3 + 1; 
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
-            particle.style.left = `${x}px`;
-            particle.style.top = `${y}px`;
 
-            const moveX = (Math.random() - 0.5) * 100; // মুভমেন্ট আরও কমানো হলো
-            const moveY = (Math.random() - 0.5) * 100; 
+            // কন্টেইনারের ভেতরের র্যান্ডম পজিশন
+            const containerRect = fireworksContainer.getBoundingClientRect();
+            const randomX = Math.random() * containerRect.width;
+            const randomY = Math.random() * containerRect.height;
+            
+            particle.style.left = `${randomX}px`;
+            particle.style.top = `${randomY}px`;
+
+            const moveX = (Math.random() - 0.5) * 80; // মুভমেন্ট আরও কমানো হলো
+            const moveY = (Math.random() - 0.5) * 80; 
             particle.style.setProperty('--x', moveX);
             particle.style.setProperty('--y', moveY);
-            particle.style.animationDelay = `${Math.random() * 4}s`; // ডিলে বাড়ানো হলো
+            particle.style.animationDelay = `${Math.random() * 2}s`; /* ডিলে কমানো হলো */
 
             fireworksContainer.appendChild(particle);
 
-            // অ্যানিমেশন শেষ হলে কণা মুছে ফেলুন (এই অংশটি পারফরম্যান্সের জন্য গুরুত্বপূর্ণ)
             particle.addEventListener('animationend', () => {
                 particle.remove();
             });
-            // 4 সেকেন্ড পরে জোর করে মুছে ফেলার ব্যবস্থা (যদি animationend ইভেন্ট ফায়ার না করে)
             setTimeout(() => {
                 if(particle.parentNode === fireworksContainer) {
                     particle.remove();
                 }
-            }, 4000); 
+            }, 3000); /* অ্যানিমেশন ডিউরেশনের সাথে সামঞ্জস্যপূর্ণ */
         }
         
-        // **ফায়ারওয়ার্ক তৈরি: ব্যবধান 400ms থেকে 600ms এ বাড়ানো হলো**
+        // কণা তৈরির হার 300ms এ বাড়ানো হলো
         setInterval(() => {
-            if (Math.random() > 0.7) { // 30% চান্স, কণা তৈরির হার আরও কমানো হলো
-                const randomX = Math.random() * window.innerWidth;
-                const randomY = Math.random() * window.innerHeight;
-                for (let i = 0; i < 3; i++) { // প্রতি বারে কণার সংখ্যা আরও কমানো হলো
-                    createParticle(randomX, randomY);
+            // আরও ঘন কণা তৈরির জন্য চান্স বাড়ানো হলো
+            if (Math.random() > 0.3) { // 70% চান্স
+                for (let i = 0; i < 6; i++) { // প্রতি বারে কণার সংখ্যা বাড়ানো হলো
+                    createParticle();
                 }
             }
-        }, 600); // 600ms এ একবার চেক করা হবে
+        }, 300); // 300ms এ একবার চেক করা হবে
 
 
-        // পেজ লোড হওয়ার পর URL থেকে ডেটা লোড করুন
         window.onload = loadDataFromURL;
 
     </script>
