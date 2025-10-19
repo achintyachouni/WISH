@@ -21,6 +21,7 @@
             position: relative;
         }
 
+        /* কেন্দ্রীয় কন্টেইনার */
         .container {
             background-color: rgba(255, 255, 255, 0.1); 
             padding: 25px 15px; 
@@ -35,7 +36,7 @@
             overflow: hidden; 
         }
 
-        /* ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন (আগের অপটিমাইজেশন বজায় রাখা হলো) */
+        /* ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন (কন্টেইনারের ভিতরে) */
         .fireworks {
             position: absolute; 
             width: 100%;
@@ -54,16 +55,11 @@
         }
         
         @keyframes spark {
-            0% {
-                transform: translate(0, 0) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0); 
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(0); opacity: 0; }
         }
-
+        
+        /* শিরোনাম ও মেসেজ */
         h1 {
             color: #ffd700; 
             font-size: 2.1em; 
@@ -101,30 +97,26 @@
             border: 3px solid #ffaa00; 
             box-shadow: 0 0 10px rgba(255, 170, 0, 0.7); 
             animation: pulse 1.8s infinite alternate; 
-            margin-bottom: 10px;
+            margin-bottom: 15px; /* ইনপুট থেকে দূরত্ব */
             display: block; 
             margin-left: auto;
             margin-right: auto;
-            background-color: #333; /* ডিফল্ট ব্যাকগ্রাউন্ড কালার */
+            background-color: #333; 
         }
 
+        /* কাস্টম আপলোড বাটন */
         .upload-label {
-            display: inline-block;
+            display: block; /* সম্পূর্ণ প্রস্থে ডিসপ্লে */
+            width: 90%;
+            margin: 0 auto 15px auto; /* কেন্দ্রে আনতে */
             background: linear-gradient(135deg, #ff9900, #ff6600); 
             color: white;
-            padding: 7px 12px; 
+            padding: 10px 12px; 
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 0.85em;
-            transition: all 0.2s ease-in-out;
+            font-size: 0.95em; 
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        .upload-label:hover {
-            background: linear-gradient(135deg, #ff6600, #ff9900);
-            transform: translateY(-1px);
         }
 
         #imageUpload {
@@ -138,38 +130,46 @@
             min-height: 1.1em; 
         }
         
+        /* নাম লেখার ইনপুট */
         #nameInput {
             width: 90%; 
-            padding: 7px;
+            padding: 10px; /* প্যাডিং বাড়ানো হলো */
             border: 2px solid #ffaa00;
             border-radius: 5px;
             background-color: rgba(255, 255, 255, 0.1);
             color: #fff;
-            font-size: 0.85em;
-            margin-bottom: 15px;
+            font-size: 0.95em; 
+            margin-bottom: 10px; 
             text-align: center;
             box-sizing: border-box; 
+            display: block; /* পূর্ণ প্রস্থে ডিসপ্লে */
+            margin-left: auto;
+            margin-right: auto;
         }
         
-        /* বাটন স্টাইল */
+        /* শেয়ার বাটন */
         #shareBtn {
-            padding: 10px 15px; 
-            font-size: 1em;
-            margin-top: 15px;
+            padding: 12px 15px; /* প্যাডিং বাড়ানো হলো */
+            font-size: 1.05em;
+            margin-top: 20px;
             background: linear-gradient(135deg, #28a745, #218838); 
             width: 100%;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: all 0.2s ease-in-out;
+            border-radius: 50px; /* গোলাকার বাটন */
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
-        
+
+        #shareBtn::before {
+            content: '💬';
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 0.75em; 
+            color: #bbb;
+        }
+
         /* AdSense Area Styling */
         .adsense-area {
             max-width: 350px; 
@@ -178,16 +178,17 @@
             padding: 8px;
             border-radius: 5px;
             border: 1px dashed #ffaa00;
-            min-height: 60px; 
+            min-height: 50px; /* উচ্চতা কমানো হলো */
             display: flex; 
             justify-content: center;
             align-items: center;
+            color: yellow; /* টেক্সট হলুদ দেখানো */
         }
     </style>
 </head>
 <body>
     <div class="adsense-area">
-        <p style="color: yellow;">[AdSense Advertisement Area - Top]</p>
+        <p>[AdSense Advertisement Area - Top]</p>
     </div>
 
     <div class="container">
@@ -218,149 +219,4 @@
 
         <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
 
-        <p class="footer">এই বিশেষ দিনে আপনার প্রিয়জনদের সাথে আনন্দ ভাগ করে নিন।</p>
-    </div>
-
-    <div class="adsense-area">
-        <p style="color: yellow;">[AdSense Advertisement Area - Bottom]</p>
-    </div>
-
-    <script>
-        /* JavaScript Functionality */
-        
-        // ডিফল্ট Base64 ছবি (ভেঙে যাওয়ার সমস্যা এড়াতে)
-        const defaultImage = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSIxMDAiIHI9Ijk1IiBmaWxsPSIjRkZEMzAwIi8+CiAgPHRleHQgeD0iMTAwIiB5PSIxMDUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzAwMDAwMCIgc3Ryb2tlPSIjMDAwMDAwIj4KICAgICNBSU1BR0UKICA8L3RleHQ+Cjwvc3ZnPg==";
-        const imagePreview = document.getElementById('imagePreview');
-        const nameInput = document.getElementById('nameInput');
-        const userNameDisplay = document.getElementById('userNameDisplay');
-        const shareBtn = document.getElementById('shareBtn');
-        const MAX_FILE_SIZE_MB = 10;
-        
-        // ফাংশন: URL থেকে নাম এবং ছবি লোড করা 
-        function loadDataFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            const name = params.get('n');
-            const imgData = params.get('i');
-
-            if (name) {
-                nameInput.value = decodeURIComponent(name);
-                userNameDisplay.textContent = `— ${decodeURIComponent(name)} এর পক্ষ থেকে`;
-            } else {
-                nameInput.value = '';
-                userNameDisplay.textContent = '';
-            }
-
-            if (imgData) {
-                try {
-                    const fullBase64 = imgData.startsWith('data:image/') ? imgData : `data:image/jpeg;base64,${imgData}`;
-                    imagePreview.src = decodeURIComponent(fullBase64);
-                } catch (e) {
-                    imagePreview.src = defaultImage;
-                }
-            } else {
-                imagePreview.src = defaultImage;
-            }
-        }
-
-        // 1. ছবি আপলোড প্রিভিউ হ্যান্ডলিং
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-
-            if (file.size > 1024 * 1024 * MAX_FILE_SIZE_MB) { 
-                alert(`${MAX_FILE_SIZE_MB} MB এর বেশি ছবি ব্যবহার করবেন না।`);
-                event.target.value = null;
-                imagePreview.src = defaultImage;
-                return;
-            }
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-            }
-            reader.readAsDataURL(file); 
-        });
-
-        // 2. নাম ইনপুট হ্যান্ডলিং
-        nameInput.addEventListener('input', function() {
-            const name = this.value.trim();
-            userNameDisplay.textContent = name ? `— ${name} এর পক্ষ থেকে` : '';
-        });
-
-
-        // 3. WhatsApp শেয়ার হ্যান্ডলিং
-        shareBtn.addEventListener('click', function() {
-            const currentName = nameInput.value.trim();
-            const currentImgData = imagePreview.src;
-            
-            const newParams = new URLSearchParams();
-            
-            if (currentName) {
-                newParams.set('n', encodeURIComponent(currentName));
-            }
-            
-            if (currentImgData && currentImgData !== defaultImage) {
-                const base64Data = currentImgData.split(',')[1] || currentImgData; 
-                newParams.set('i', encodeURIComponent(base64Data));
-            }
-
-            const baseUrl = window.location.origin + window.location.pathname;
-            const newShareLink = `${baseUrl}?${newParams.toString()}`;
-
-            const shareText = `🎉🪔 আপনার জন্য একটি বিশেষ ব্যক্তিগত শুভেচ্ছা বার্তা এসেছে। দীপাবলির আলোয় আপনার জীবন ভরে উঠুক। দেখতে ক্লিক করুন: `;
-            const fullMessage = shareText + newShareLink;
-            
-            const encodedMessage = encodeURIComponent(fullMessage);
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-        });
-
-        // 4. ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন স্ক্রিপ্ট
-        const fireworksContainer = document.getElementById('fireworks-container');
-
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            const size = Math.random() * 3 + 1; 
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-
-            const containerRect = fireworksContainer.getBoundingClientRect();
-            const randomX = Math.random() * containerRect.width;
-            const randomY = Math.random() * containerRect.height;
-            
-            particle.style.left = `${randomX}px`;
-            particle.style.top = `${randomY}px`;
-
-            const moveX = (Math.random() - 0.5) * 80; 
-            const moveY = (Math.random() - 0.5) * 80; 
-            particle.style.setProperty('--x', moveX);
-            particle.style.setProperty('--y', moveY);
-            particle.style.animationDelay = `${Math.random() * 2}s`; 
-
-            fireworksContainer.appendChild(particle);
-
-            particle.addEventListener('animationend', () => {
-                particle.remove();
-            });
-            setTimeout(() => {
-                if(particle.parentNode === fireworksContainer) {
-                    particle.remove();
-                }
-            }, 3000); 
-        }
-        
-        setInterval(() => {
-            if (Math.random() > 0.3) { 
-                for (let i = 0; i < 6; i++) { 
-                    createParticle();
-                }
-            }
-        }, 300); 
-
-        window.onload = loadDataFromURL;
-
-    </script>
-</body>
-</html>
+        <p class="footer">এই বিশেষ দিনে আপনার প্রিয়জনদের সাথে আনন্দ ভাগ করে নিন।</
