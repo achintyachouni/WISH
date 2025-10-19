@@ -8,8 +8,9 @@
         /* CSS Styling */
         body {
             font-family: 'Arial', sans-serif;
-            background: #0a0a0a; 
-            color: #fff; 
+            /* ব্ল্যাক ব্যাকগ্রাউন্ড সরিয়ে উজ্জ্বল ব্যাকগ্রাউন্ড যোগ করা হলো */
+            background: linear-gradient(135deg, #fffbe3 0%, #ffe0b2 100%); /* হালকা সোনালী/ক্রিম ব্যাকগ্রাউন্ড */
+            color: #333; /* টেক্সটের রঙ কালো করা হলো */
             display: flex;
             flex-direction: column; 
             justify-content: center;
@@ -23,10 +24,10 @@
 
         /* কেন্দ্রীয় কন্টেইনার (স্কয়ার বক্স) - Mega-Size */
         .container {
-            background-color: rgba(255, 255, 255, 0.1); 
+            background-color: rgba(255, 255, 255, 0.9); /* হালকা স্বচ্ছ সাদা */
             padding: 40px 25px; 
             border-radius: 20px; 
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* শ্যাডো হালকা করা হলো */
             max-width: 500px; 
             width: 98%; 
             border: 5px solid #ff7722; 
@@ -61,106 +62,63 @@
         
         /* শিরোনাম ও মেসেজ - ফন্ট সাইজ আরও বাড়ানো হয়েছে */
         h1 {
-            color: #ffd700; 
-            font-size: 3em; 
+            color: #d9531e; /* টেক্সটের রঙ পরিবর্তন */
+            font-size: 8vw; 
             margin-bottom: 10px;
-            text-shadow: 1px 1px 7px rgba(255, 255, 255, 0.8);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
-            color: #90ee90; 
-            font-size: 1.6em; 
+            color: #388e3c; /* সবুজ রং ধরে রাখা হলো */
+            font-size: 4.5vw; 
             margin-bottom: 30px;
         }
 
         .message {
             margin-bottom: 30px;
             padding: 18px; 
-            background-color: rgba(255, 220, 150, 0.2); 
+            background-color: #fff9e6; /* সাদা ব্যাকগ্রাউন্ডে হালকা হলুদ */
             border-radius: 12px;
-            font-size: 1.2em; 
+            font-size: 3.5vw; 
             font-weight: bold;
-            color: #ffebcd; 
+            color: #795548; /* টেক্সটের রঙ পরিবর্তন */
+            border: 1px solid #ffcc00;
         }
         
         /* ছবি আপলোড এবং প্রিভিউ ফিক্স */
-        .image-upload-section {
-            margin: 35px 0 25px 0;
-            text-align: center;
-        }
-
         .user-image {
-            width: 140px; 
-            height: 140px;
-            border-radius: 50%; 
             border: 5px solid #ffaa00; 
-            box-shadow: 0 0 20px rgba(255, 170, 0, 0.9); 
-            animation: pulse 1.8s infinite alternate; 
-            margin-bottom: 25px; 
-            display: block; 
-            margin-left: auto;
-            margin-right: auto;
-            background-color: #333; 
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.7); 
+            background-color: #eee; 
+            /* অন্যান্য সাইজিং vw দিয়ে ফিক্স করা আছে */
         }
 
         .upload-label {
-            display: block; 
-            width: 95%;
-            margin: 0 auto 25px auto; 
             background: linear-gradient(135deg, #ff9900, #ff6600); 
-            color: white;
-            padding: 15px; 
-            border-radius: 10px;
-            font-size: 1.2em; 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-        }
-
-        #imageUpload {
-            display: none; 
+            color: white; 
+            font-size: 4vw; 
         }
 
         #nameInput {
-            width: 95%; 
-            padding: 15px; 
             border: 3px solid #ffaa00;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 1.2em; 
-            margin-bottom: 20px; 
-            box-sizing: border-box; 
-            display: block; 
-            margin-left: auto;
-            margin-right: auto;
+            background-color: #fff;
+            color: #333; /* কালো টেক্সট */
+            font-size: 4vw; 
+        }
+        
+        /* অন্যান্য টেক্সট */
+        #userNameDisplay {
+            color: #d9531e; /* ডিসপ্লে নামের রঙ পরিবর্তন */
+            font-size: 3.5vw;
         }
         
         /* শেয়ার বাটন */
         #shareBtn {
             padding: 20px 25px; 
-            font-size: 1.4em; 
+            font-size: 4.5vw; 
             margin-top: 40px;
             background: linear-gradient(135deg, #28a745, #218838); 
-            width: 100%;
-            border: none;
-            border-radius: 60px; 
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        #shareBtn::before {
-            content: '💬';
-            margin-right: 12px;
-            font-size: 1.4em;
-        }
-
-        /* অন্যান্য টেক্সট */
-        .footer, #userNameDisplay {
-            font-size: 1.1em; 
+            /* অন্যান্য স্টাইল ঠিক আছে */
         }
 
         /* AdSense Area Styling */
@@ -174,7 +132,8 @@
             display: flex; 
             justify-content: center;
             align-items: center;
-            color: yellow; 
+            color: #333; /* টেক্সটের রঙ কালো করা হলো */
+            background-color: #fff8e1; /* হালকা হলুদ ব্যাকগ্রাউন্ড */
             font-size: 1em;
         }
     </style>
@@ -207,7 +166,7 @@
             
             <p id="userNameDisplay"></p>
             
-            <p style="color:#888; margin-top:5px; font-size: 0.9em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
+            <p style="color:#888; margin-top:5px; font-size: 0.8em;">(১০ MB-এর বেশি ছবি ব্যবহার করবেন না)</p>
         </div>
 
         <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
@@ -228,11 +187,11 @@
         const userNameDisplay = document.getElementById('userNameDisplay');
         const shareBtn = document.getElementById('shareBtn');
         const MAX_FILE_SIZE_MB = 10;
-
+        
         // ***** এখানে আপনার তৈরি করা ছোট লিঙ্কটি বসান *****
         const SHORT_BASE_LINK = "https://tinyurl.com/DiwaliWish"; 
         // ***** ************************************** *****
-        
+
         // ফাংশন: URL থেকে নাম এবং ছবি লোড করা (Chain Logic)
         function loadDataFromURL() {
             const params = new URLSearchParams(window.location.search);
@@ -244,7 +203,6 @@
                 nameInput.value = decodedName;
                 userNameDisplay.textContent = `— ${decodedName} এর পক্ষ থেকে`;
                 
-                // শিরোনাম আপডেট করুন 
                 document.querySelector('h2').textContent = `${decodedName} এর তরফ থেকে আপনার ও আপনার পরিবারকে শুভ দীপাবলি!`;
                 
             } else {
@@ -253,7 +211,6 @@
                 document.querySelector('h2').textContent = `আপনার জীবন আলোয় ভরে উঠুক!`;
             }
 
-            // ছবি লোড করা
             if (imgData) {
                 try {
                     const rawBase64 = decodeURIComponent(imgData);
@@ -308,7 +265,6 @@
                 newParams.set('i', encodeURIComponent(base64Data));
             }
 
-            // ছোট লিঙ্কের সাথে Query Parameter যোগ করা হলো
             const queryString = newParams.toString();
             const finalShareLink = `${SHORT_BASE_LINK}?${queryString}`;
 
