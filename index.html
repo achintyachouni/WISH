@@ -1,58 +1,115 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>शुभ दीपावली - शुभकामनाएँ 🪔</title>
+    <title>শুভ দীপাবলি - অ্যানিমেটেড শুভেচ্ছা 🪔✨</title>
     <style>
         /* CSS */
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%); /* हल्का सुनहरा बैकग्राउंड */
-            color: #444;
+            background: #0a0a0a; /* গভীর কালো ব্যাকগ্রাউন্ড রাতের পরিবেশের জন্য */
+            color: #fff; /* সাদা টেক্সট */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
             text-align: center;
+            overflow: hidden; /* অ্যানিমেশনের জন্য */
+            position: relative;
+        }
+
+        /* ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন */
+        .fireworks {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: #ffcc00; /* সোনালী স্পার্কল */
+            border-radius: 50%;
+            opacity: 0;
+            animation: spark 2s ease-out forwards infinite;
+        }
+
+        @keyframes spark {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 1;
+            }
+            20% {
+                transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px)) scale(1);
+            }
+            100% {
+                transform: translate(calc(var(--x) * 2px), calc(var(--y) * 2px)) scale(0.1);
+                opacity: 0;
+            }
         }
 
         .container {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1); /* হালকা স্বচ্ছ ব্যাকগ্রাউন্ড */
             padding: 40px 30px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
             width: 90%;
-            border: 3px solid #ff7722; /* दिवाली रंग की बॉर्डर */
+            border: 3px solid #ff7722; /* দীপাবলির রঙের বর্ডার */
+            position: relative; /* z-index এর জন্য */
+            z-index: 1; /* অ্যানিমেশনের উপরে রাখার জন্য */
         }
 
         h1 {
-            color: #d9531e; /* नारंगी-लाल */
-            font-size: 2.5em;
+            color: #ffd700; /* সোনালী রঙ */
+            font-size: 2.8em;
             margin-bottom: 10px;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.3);
         }
 
         h2 {
-            color: #388e3c; /* हरा */
-            font-size: 1.5em;
+            color: #90ee90; /* হালকা সবুজ */
+            font-size: 1.6em;
             margin-bottom: 25px;
         }
 
         .message {
             margin-bottom: 30px;
             padding: 20px;
-            background-color: #ffe0b2; /* हल्का नारंगी */
+            background-color: rgba(255, 220, 150, 0.2); /* হালকা স্বচ্ছ কমলা */
             border-radius: 10px;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
-            color: #795548;
+            color: #ffebcd; /* হালকা সোনালী */
+        }
+
+        /* ছবি যোগ করার সেকশন */
+        .image-section {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .user-image {
+            width: 150px; /* ছবির সাইজ */
+            height: 150px;
+            border-radius: 50%; /* গোলাকার ছবি */
+            object-fit: cover;
+            border: 4px solid #ffaa00; /* ছবির চারপাশে সোনালী বর্ডার */
+            box-shadow: 0 0 15px rgba(255, 170, 0, 0.7); /* ছবির চারপাশে হালকা আভা */
+            animation: pulse 2s infinite alternate; /* হালকা স্পন্দিত অ্যানিমেশন */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 170, 0, 0.7); }
+            100% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 170, 0, 1); }
         }
         
         #shareBtn {
-            background-color: #25d366; /* WhatsApp हरा */
+            background-color: #25d366; /* WhatsApp সবুজ */
             color: white;
             padding: 15px 25px;
             border: none;
@@ -75,7 +132,7 @@
             transform: scale(0.98);
         }
 
-        /* WhatsApp Icon (simple text-based icon) */
+        /* WhatsApp Icon */
         #shareBtn::before {
             content: '💬';
             margin-right: 10px;
@@ -85,47 +142,76 @@
         .footer {
             margin-top: 25px;
             font-size: 0.9em;
-            color: #888;
+            color: #bbb;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🪔 शुभ दीपावली! 🪔</h1>
-        <h2>रोशनी और समृद्धि का त्योहार!</h2>
+    <div class="fireworks" id="fireworks-container"></div> <div class="container">
+        <h1>🪔 শুভ দীপাবলি! 🪔</h1>
+        <h2>আপনার জীবন আলোয় ভরে উঠুক!</h2>
 
         <div class="message">
-            "यह दीपावली आपके जीवन में खुशियां, स्वास्थ्य और समृद्धि लाए।"
+            "এই দীপাবলি আপনার জীবনে আনন্দ, সুস্বাস্থ্য এবং সমৃদ্ধি নিয়ে আসুক।"
         </div>
 
-        <button id="shareBtn">यह शुभकामना अपने दोस्तों को भेजें</button>
+        <div class="image-section">
+            <img src="https://via.placeholder.com/150/FFD700/000000?text=আপনার+ছবি" alt="আপনার ছবি" class="user-image">
+            <p style="color:#ffcc00; margin-top:10px; font-weight:bold;">আপনার প্রিয়জনের ছবি!</p>
+        </div>
 
-        <p class="footer">बस एक क्लिक से दीपावली की खुशियां शेयर करें।</p>
+        <button id="shareBtn">এই শুভেচ্ছা আপনার বন্ধুদের সাথে শেয়ার করুন</button>
+
+        <p class="footer">এই বিশেষ দিনে আপনার প্রিয়জনদের সাথে আনন্দ ভাগ করে নিন।</p>
     </div>
 
     <script>
         /* JavaScript */
         document.getElementById('shareBtn').addEventListener('click', function() {
-            // 1. वह लिंक जो आप शेयर करना चाहते हैं (यह आपके लैंडिंग पेज का URL होगा)
-            // जब आप इस फ़ाइल को किसी वेब सर्वर पर अपलोड करेंगे, तो यह URL वहाँ का होगा।
-            // अभी हम उदाहरण के लिए एक प्लेसहोल्डर URL का उपयोग कर रहे हैं।
-            const pageLink = window.location.href; // यह वर्तमान पेज का URL लेगा
-            
-            // 2. संदेश जो लिंक के साथ जाएगा
-            const shareText = "🎉🪔 आपको और आपके परिवार को दीपावली की हार्दिक शुभकामनाएँ! \n\nयह शुभकामना संदेश आपके लिए भेजा है। इसे देखने के लिए क्लिक करें: ";
-            
-            // 3. पूरा संदेश: टेक्स्ट + पेज लिंक
+            const pageLink = window.location.href; 
+            const shareText = "🎉🪔 আপনাকে এবং আপনার পরিবারকে দীপাবলির হার্দিক শুভেচ্ছা! \n\nএই অ্যানিমেটেড শুভেচ্ছা বার্তাটি আপনার জন্য পাঠানো হয়েছে। দেখতে ক্লিক করুন: ";
             const fullMessage = shareText + pageLink;
-
-            // URL एन्कोडिंग
             const encodedMessage = encodeURIComponent(fullMessage);
-            
-            // WhatsApp शेयर लिंक
             const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
-
-            // नए टैब में ओपन करें (मोबाइल पर WhatsApp ऐप खुल जाएगा)
             window.open(whatsappUrl, '_blank');
         });
+
+        // ফায়ারওয়ার্ক/স্পার্কল অ্যানিমেশন এর জন্য JavaScript
+        const fireworksContainer = document.getElementById('fireworks-container');
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            const size = Math.random() * 5 + 2; // কণার আকার
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+
+            // অ্যানিমেশনের জন্য র্যান্ডম দিক
+            const moveX = (Math.random() - 0.5) * 200; // -100 থেকে 100 পিক্সেল পর্যন্ত
+            const moveY = (Math.random() - 0.5) * 200; // -100 থেকে 100 পিক্সেল পর্যন্ত
+            particle.style.setProperty('--x', moveX);
+            particle.style.setProperty('--y', moveY);
+            particle.style.animationDelay = `${Math.random() * 2}s`; // র্যান্ডম ডিলে
+
+            fireworksContainer.appendChild(particle);
+
+            // অ্যানিমেশন শেষ হলে কণা মুছে ফেলুন
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
+        }
+
+        // প্রতি 200ms এ নতুন কণা তৈরি করুন
+        setInterval(() => {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            for (let i = 0; i < 10; i++) { // প্রতি বারে 10টি কণা
+                createParticle(randomX, randomY);
+            }
+        }, 200);
+
     </script>
 </body>
 </html>
