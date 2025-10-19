@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शुभ दीपावली - शुभकामनाएँ 🪔</title>
+    <style>
+        /* CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%); /* हल्का सुनहरा बैकग्राउंड */
+            color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 90%;
+            border: 3px solid #ff7722; /* दिवाली रंग की बॉर्डर */
+        }
+
+        h1 {
+            color: #d9531e; /* नारंगी-लाल */
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #388e3c; /* हरा */
+            font-size: 1.5em;
+            margin-bottom: 25px;
+        }
+
+        .message {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #ffe0b2; /* हल्का नारंगी */
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #795548;
+        }
+        
+        #shareBtn {
+            background-color: #25d366; /* WhatsApp हरा */
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        #shareBtn:hover {
+            background-color: #1ebe58;
+        }
+
+        #shareBtn:active {
+            transform: scale(0.98);
+        }
+
+        /* WhatsApp Icon (simple text-based icon) */
+        #shareBtn::before {
+            content: '💬';
+            margin-right: 10px;
+            font-size: 1.4em;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🪔 शुभ दीपावली! 🪔</h1>
+        <h2>रोशनी और समृद्धि का त्योहार!</h2>
+
+        <div class="message">
+            "यह दीपावली आपके जीवन में खुशियां, स्वास्थ्य और समृद्धि लाए।"
+        </div>
+
+        <button id="shareBtn">यह शुभकामना अपने दोस्तों को भेजें</button>
+
+        <p class="footer">बस एक क्लिक से दीपावली की खुशियां शेयर करें।</p>
+    </div>
+
+    <script>
+        /* JavaScript */
+        document.getElementById('shareBtn').addEventListener('click', function() {
+            // 1. वह लिंक जो आप शेयर करना चाहते हैं (यह आपके लैंडिंग पेज का URL होगा)
+            // जब आप इस फ़ाइल को किसी वेब सर्वर पर अपलोड करेंगे, तो यह URL वहाँ का होगा।
+            // अभी हम उदाहरण के लिए एक प्लेसहोल्डर URL का उपयोग कर रहे हैं।
+            const pageLink = window.location.href; // यह वर्तमान पेज का URL लेगा
+            
+            // 2. संदेश जो लिंक के साथ जाएगा
+            const shareText = "🎉🪔 आपको और आपके परिवार को दीपावली की हार्दिक शुभकामनाएँ! \n\nयह शुभकामना संदेश आपके लिए भेजा है। इसे देखने के लिए क्लिक करें: ";
+            
+            // 3. पूरा संदेश: टेक्स्ट + पेज लिंक
+            const fullMessage = shareText + pageLink;
+
+            // URL एन्कोडिंग
+            const encodedMessage = encodeURIComponent(fullMessage);
+            
+            // WhatsApp शेयर लिंक
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedMessage}`;
+
+            // नए टैब में ओपन करें (मोबाइल पर WhatsApp ऐप खुल जाएगा)
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
